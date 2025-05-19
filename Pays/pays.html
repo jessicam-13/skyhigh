@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Destination</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #fcb69f, #ff9a9e);
+      color: white;
+      text-align: center;
+    }
+
+    header {
+      padding: 40px 20px 20px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .banner {
+      height: 300px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 20px;
+      margin: 0 20px 30px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .description {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+      font-size: 18px;
+      line-height: 1.6;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      backdrop-filter: blur(6px);
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      color: white;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="paysNom">Destination</h1>
+    <div class="banner" id="paysImage"></div>
+  </header>
+
+  <section class="description" id="paysDescription">
+
+  </section>
+
+  <a href="index.html">← Retour à l'accueil</a>
+
+  <script>
+    const destinations = {
+      france: {
+        nom: "France",
+        image: "https://source.unsplash.com/1200x600/?france",
+        description: "La France est l’une des destinations les plus prisées au monde. De Paris à la Côte d’Azur, elle séduit par son patrimoine, sa gastronomie et son art de vivre unique."
+      },
+      japan: {
+        nom: "Japon",
+        image: "https://source.unsplash.com/1200x600/?japan",
+        description: "Le Japon offre un mélange fascinant de traditions millénaires et de modernité, entre temples anciens, cerisiers en fleurs et technologies de pointe."
+      },
+      brazil: {
+        nom: "Brésil",
+        image: "https://source.unsplash.com/1200x600/?brazil",
+        description: "Le Brésil vous transporte entre plages infinies, Amazonie sauvage et rythmes endiablés du carnaval."
+      },
+      italy: {
+        nom: "Italie",
+        image: "https://source.unsplash.com/1200x600/?italy",
+        description: "L’Italie vous émerveille avec ses villes d’art, sa cuisine généreuse et ses paysages allant des Alpes à la Méditerranée."
+      },
+      canada: {
+        nom: "Canada",
+        image: "https://source.unsplash.com/1200x600/?canada",
+        description: "Le Canada est une terre d’aventure et de grands espaces : nature préservée, lacs majestueux et villes cosmopolites."
+      },
+      australia: {
+        nom: "Australie",
+        image: "https://source.unsplash.com/1200x600/?australia",
+        description: "Plages dorées, Grande Barrière de Corail et vie sauvage : l’Australie est une destination pleine de contrastes et de liberté."
+      },
+      thailand: {
+        nom: "Thaïlande",
+        image: "https://source.unsplash.com/1200x600/?thailand",
+        description: "Temples dorés, îles paradisiaques et gastronomie riche font de la Thaïlande une destination incontournable d’Asie."
+      },
+      greece: {
+        nom: "Grèce",
+        image: "https://source.unsplash.com/1200x600/?greece",
+        description: "La Grèce combine plages ensoleillées, vestiges antiques et villages blancs perchés sur les falaises."
+      },
+      morocco: {
+        nom: "Maroc",
+        image: "https://source.unsplash.com/1200x600/?morocco",
+        description: "Le Maroc vous invite à une aventure sensorielle entre souks colorés, déserts mystérieux et montagnes majestueuses."
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const dest = params.get('dest');
+
+    if (dest && destinations[dest]) {
+      const data = destinations[dest];
+      document.getElementById("paysNom").textContent = data.nom;
+      document.getElementById("paysImage").style.backgroundImage = `url(${data.image})`;
+      document.getElementById("paysDescription").textContent = data.description;
+    } else {
+      document.getElementById("paysNom").textContent = "Destination inconnue";
+      document.getElementById("paysDescription").textContent = "Désolé, nous n'avons pas d'information sur cette destination.";
+      document.getElementById("paysImage").style.background = "#ccc";
+    }
+  </script>
+</body>
+</html>

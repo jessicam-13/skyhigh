@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkyHigh</title>
+  <link rel="stylesheet" href="../Home/home.css">
+</head>
+
+    <header>
+        <nav>
+          <div class="top-bar">
+            <a href="#home">Home</a>
+            <a href="#missions">Nos missions</a>
+            <a href="#transports">Transports</a>
+            <a href="#logements">Logements</a>
+            <a href="#formules">Nos formules</a>
+            <a href="#devis">Devis personnalisé</a>
+          </div>
+        </nav>
+    </header>
+
+<body>
+
+  <section class="hero">
+    <h1>Quelle est votre destination de rêve ?</h1>
+    <div class="search-bar">
+      <input type="text" placeholder="Entrez un pays..." />
+    </div>
+  </section>
+
+
+  <section class="country-section">
+    <h2>Destinations populaires</h2>
+    <div class="country-grid">
+      <div class="country-card" onclick="goTo('france')">
+        <img src="../Images/France.jpg" alt="France" />
+        <div class="label">France</div>
+      </div>
+      <div class="country-card" onclick="goTo('japan')">
+        <img src="../Images/Japon.jpg" alt="Japon" />
+        <div class="label">Japon</div>
+      </div>
+      <div class="country-card" onclick="goTo('canada')">
+        <img src="../Images/Canada.jpg" alt="Canada" />
+        <div class="label">Canada</div>
+      </div>
+      <div class="country-card" onclick="goTo('morocco')">
+        <img src="../Images/Maroc.jpg" alt="Maroc" />
+        <div class="label">Maroc</div>
+      </div>
+    </div>
+  </section>
+
+<script>
+  function goTo(pays) {
+    window.location.href = '../Pays/pays.html?dest=' + pays;
+  }
+</script>
+
+</body>
+
+    <footer>
+        <br><br>
+          <div class="texte">
+            ©2025 Jessica MILLOGO & Inès VEIGNEAU <br>
+            <a href="./about.html">About us</a>
+        </div>
+    </footer>
+
+
+</html>
