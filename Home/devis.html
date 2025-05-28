@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkyHigh - Devis</title>
+  <link rel="stylesheet" href="../Home/home.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    form {
+      background-color: #ff9b6c;
+      padding: 20px;
+      border-radius: 10px;
+      width: 70%;
+      margin: auto;
+    }
+
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input, select {
+      width: 95%;
+      padding: 10px;
+      margin-top: 4px;
+      margin-bottom: 15px;
+      border: 1px solid #333;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #ff54cc;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #228427;
+    }
+  </style>
+
+
+</head>
+
+
+    <header>
+        <nav>
+          <div class="top-bar">
+            <a href="../Home/home.html">Home</a>
+            <a href="../Home/about.html">Nos missions (about us)</a>
+            <a href="../Home/transports.html">Transports</a>
+            <a href="../Home/logements.html">Logements</a>
+            <a href="../Home/formules.html">Nos formules</a>
+            <a href="../Home/devis.html">Devis personnalisé</a>
+          </div>
+        </nav>
+    </header>
+
+
+<body>
+
+  <h1>Demande de devis</h1>
+
+  <form id="quoteForm">
+    
+    <div id="step1" class="form-step active">
+      <h2>Vos informations personnelles</h2>
+      <label>Civilité<br>
+        <select name="civilite" required>
+          <option value="">Sélectionnez</option>
+          <option value="Madame">Madame</option>
+          <option value="Monsieur">Monsieur</option>
+        </select>
+      </label>
+      <label>Nom complet<br>
+        <input type="text" name="nom" required>
+      </label>
+      <label>Email<br>
+        <input type="email" name="email" required>
+      </label>
+      <label>Téléphone<br>
+        <input type="tel" name="telephone" required>
+      </label>
+      <label>Adresse<br>
+        <input type="text" name="adresse" required>
+      </label>
+      <label>Code postal + ville<br>
+        <input type="text" name="ville" required>
+      </label>
+      <label>Pays<br>
+        <input type="text" name="pays" required>
+      </label>
+      <label>Nombre de voyageurs<br>
+        <input type="number" name="voyageurs" min="1" required>
+      </label>
+
+      <button type="button" onclick="validateStep1()">Passer à l'étape suivante</button>
+    </div>
+
+  
+    <div id="step2" class="form-step">
+      <h2>Votre voyage</h2>
+      <label>Destination<br>
+        <input type="text" name="destination" required>
+      </label>
+      <label>Date de départ<br>
+        <input type="date" name="date_depart" required>
+      </label>
+      <label>Durée du séjour<br>
+        <select name="duree">
+          <option value="Peu importe">Peu importe</option>
+          <option value="2 jours">Week-end (2 jours)</option>
+          <option value="4 jours">Long week-end (4 jours)</option>
+          <option value="1 semaine">1 semaine</option>
+          <option value="2 semaines">2 semaines</option>
+          <option value="3 semaines">3 semaines</option>
+          <option value="1 mois ou +">1 mois ou +</option>
+        </select>
+      </label>
+      <label>Budget (€)<br>
+        <input type="number" name="budget" min="0" required>
+      </label>
+      <label>Type de séjour<br>
+        <select name="type_sejour">
+          <option value="Peu importe">Peu importe</option>
+          <option value="Luxe">Luxe</option>
+          <option value="Root">Root</option>
+          <option value="Camping">Camping</option>
+          <option value="Hôtel">Hôtel</option>
+          <option value="Auberge">Auberge</option>
+          <option value="Location">Location</option>
+          <option value="Autre">Autre</option>
+        </select>
+      </label>
+
+      <button type="submit">Envoyer ma demande de devis</button>
+    </div>
+  </form>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("quoteForm");
+      const step1 = document.getElementById("step1");
+      const step2 = document.getElementById("step2");
+
+      window.validateStep1 = function () {
+        const inputs = step1.querySelectorAll("input, select");
+        for (let input of inputs) {
+          if (!input.value.trim()) {
+            alert("Veuillez remplir tous les champs de la première étape.");
+            return;
+          }
+        }
+        step1.classList.remove("active");
+        step2.classList.add("active");
+      };
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const inputs = step2.querySelectorAll("input, select");
+        for (let input of inputs) {
+          if (!input.value.trim()) {
+            alert("Veuillez remplir tous les champs de la deuxième étape.");
+            return;
+          }
+        }
+
+        const email = form.email.value;
+        alert(`Votre devis sera envoyé à l'adresse : ${email} sous peu.`);
+
+        generatePDF();
+      });
+
+      function generatePDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        doc.setFontSize(16);
+        doc.text("Demande de devis SkyHigh", 10, 10);
+
+        doc.setFontSize(12);
+        doc.text("Informations personnelles :", 10, 20);
+        doc.text(`Civilité : ${form.civilite.value}`, 10, 30);
+        doc.text(`Nom : ${form.nom.value}`, 10, 40);
+        doc.text(`Email : ${form.email.value}`, 10, 50);
+        doc.text(`Téléphone : ${form.telephone.value}`, 10, 60);
+        doc.text(`Adresse : ${form.adresse.value}`, 10, 70);
+        doc.text(`Ville : ${form.ville.value}`, 10, 80);
+        doc.text(`Pays : ${form.pays.value}`, 10, 90);
+        doc.text(`Voyageurs : ${form.voyageurs.value}`, 10, 100);
+
+        doc.text("Votre voyage :", 10, 120);
+        doc.text(`Destination : ${form.destination.value}`, 10, 130);
+        doc.text(`Date de départ : ${form.date_depart.value}`, 10, 140);
+        doc.text(`Durée : ${form.duree.value}`, 10, 150);
+        doc.text(`Type de séjour : ${form.type_sejour.value}`, 10, 160);
+        doc.text(`Budget : ${form.budget.value} €`, 10, 170);
+
+        doc.save("demande-devis-voyage.pdf");
+      }
+    });
+  </script>
+</body>
+
+    <footer>
+        <br><br>
+          <div class="texte">
+            ©2025 Jessica MILLOGO & Inès VEIGNEAU <br>
+            <a href="./about.html">About us</a>
+        </div>
+    </footer>
+
+
+</html>
