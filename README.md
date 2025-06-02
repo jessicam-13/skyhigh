@@ -10,6 +10,6 @@ Sur le site vous pouvez :
 - Faire une demande de devis personnalisé
 - Les pages Logements, Transports et Nos formules sont là pour un aspect décoratif
 
-Lien vers le GIT : 
+Lien vers le GIT : https://github.com/jessicam-13/skyhigh.git 
 
 Les textes descriptifs des 6 pays ont été générés avec une IA. 
